@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ProductsController;
 use \App\Http\Controllers\Admin\DashboardContoller;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\UserController;
 
 Route::middleware(['auth', 'admin'])->group(function () {
     // Get Route Admin Products
@@ -24,16 +26,19 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get("/admin/orders/delivered", [OrderController::class, 'orders_delivered'])->name("admin.orders.delivered");
     Route::get("/admin/blog/new", [BlogController::class, 'new_article'])->name("admin.blog.new_article");
     Route::get("/admin/blog/my", [BlogController::class, 'my_article'])->name("admin.blog.my_article");
-    Route::get("/admin/settings/homepage", [SettingController::class, 'setting'])->name("admin.settings.homepage");
-    Route::get("/admin/settings/aboutpage", [SettingController::class, 'about'])->name("admin.settings.aboutpage");
-    Route::get("/admin/settings/contactpage", [SettingController::class, 'contact'])->name("admin.settings.contactpage");
-    Route::get("/admin/settings/shoppage", [SettingController::class, 'shop'])->name("admin.settings.shoppage");
-    Route::get("/admin/settings/category", [SettingController::class, 'category'])->name("admin.settings.category");
-    Route::get("/admin/settings/chart", [SettingController::class, 'chart'])->name("admin.settings.chartpage");
 
-    Route::get("/admin/users", function () {
-        return "Admin Users";
+    Route::prefix("admin/settings")->group(function () {
+        Route::get("/homepage", [SettingController::class, 'setting'])->name("admin.settings.homepage");
+        Route::get("/aboutpage", [SettingController::class, 'about'])->name("admin.settings.aboutpage");
+        Route::get("/contactpage", [SettingController::class, 'contact'])->name("admin.settings.contactpage");
+        Route::get("/shoppage", [SettingController::class, 'shop'])->name("admin.settings.shoppage");
+        Route::get("/category", [SettingController::class, 'category'])->name("admin.settings.category");
+        Route::get("/chart", [SettingController::class, 'chart'])->name("admin.settings.chartpage");
     });
+    
+    Route::get("/admin/users", [UserController::class, 'index'])->name('admin.users');
+    Route::get("/admin/profile", [ProfileController::class, 'index'])->name('admin.profile');
+
 
     Route::get("/admin/users/{id}", function ($id) {
         return "Admin Users $id";

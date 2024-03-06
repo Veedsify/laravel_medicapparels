@@ -275,7 +275,7 @@
                             </ul><!-- /.box-menu -->
                         </li>
                         <li class="navigation__item">
-                            <a href="/admin/profile" class="navigation__link">Users</a>
+                            <a href="{{route('admin.users')}}" class="navigation__link">Users</a>
                         </li>
                         <li class="navigation__item">
                             <a href="/admin/profile" class="navigation__link">Profile</a>
